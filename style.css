@@ -1,0 +1,124 @@
+/* Wordly Dictionary Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #4a47a3;
+  margin-top: 0;
+}
+
+/* Search Form */
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #4a47a3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #38348a;
+}
+
+.buttons {
+  margin: 10px 0 15px 0;
+}
+
+/* Dynamically styled active save button and highlighted word title */
+.saved-btn-active {
+  background-color: #e0a96d !important;
+}
+
+.saved-highlight {
+  color: #e0a96d;
+}
+
+#message {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+#phonetic {
+  color: #666;
+  font-style: italic;
+  margin-top: -5px;
+}
+
+/* Definitions */
+.meaning {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.part-of-speech {
+  font-weight: bold;
+  font-style: italic;
+  color: #4a47a3;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Saved Words Section */
+.saved-section {
+  margin-top: 30px;
+  border-top: 2px solid #ddd;
+  padding-top: 15px;
+}
+
+.saved-section ul {
+  padding-left: 20px;
+}
+
+.saved-section li {
+  margin-bottom: 6px;
+}
+
+.delete-btn {
+  background-color: #ff4d4d;
+  padding: 3px 8px;
+  font-size: 12px;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+}
