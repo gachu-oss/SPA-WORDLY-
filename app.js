@@ -81,3 +81,65 @@ function displayResults(data) {
       }
     }
   }
+
+  // Display definitions using innerHTML
+  definitionsDiv.innerHTML = "";
+  for (let meaning of data.meanings) {
+    let defsHtml = "";
+    for (let d of meaning.definitions.slice(0, 3)) {
+      defsHtml += "<li>" + d.definition + (d.example ? "<br><em>\"" + d.example + "\"</em>" : "") + "</li>";
+    }
+
+    let syns = (meaning.synonyms && meaning.synonyms.length > 0) ? meaning.synonyms.join(", ") : "No synonyms available";
+
+    definitionsDiv.innerHTML += 
+      "<div class=\"meaning\">" +
+        "<p class=\"part-of-speech\">" + meaning.partOfSpeech + "</p>" +
+        "<ol>" + defsHtml + "</ol>" +
+        "<p><strong>Synonyms:</strong> " + syns + "</p>" +
+      "</div>";
+  }
+
+  updateSaveButton();
+}
+
+// Simple backup display in case Wiktionary is used
+function displayWiktionary(word, data) {
+  message.textContent = "";
+  resultBox.style.display = "block";
+  currentWord = word;
+  wordTitle.textContent = word;
+  phonetic.textContent = "/" + word + "/";
+  audioUrl = "";
+
+  definitionsDiv.innerHTML = "";
+  let entries = data.en || [];
+  for (let entry of entries) {
+    let defsHtml = "";
+    for (let d of (entry.definitions || []).slice(0, 2)) {
+      defsHtml += "<li>" + d.definition.replace(/<[^>]*>/g, "") + "</li>";
+    }
+
+    definitionsDiv.innerHTML += 
+      "<div class=\"meaning\">" +
+        "<p class=\"part-of-speech\">" + entry.partOfSpeech + "</p>" +
+        "<ol>" + defsHtml + "</ol>" +
+        "<p><strong>Synonyms:</strong> No synonyms available</p>" +
+      "</div>";
+  }
+
+  updateSaveButton();
+}
+
+// 4. Play audio button event
+playBtn.addEventListener("click", function () {
+  if (audioUrl) {
+    let audio = new Audio(audioUrl);
+    audio.play();
+  } else if ("speechSynthesis" in window) {
+    let utterance = new SpeechSynthesisUtterance(currentWord);
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("Sorry, no audio available for this word.");
+  }
+});
