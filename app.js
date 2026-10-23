@@ -143,3 +143,59 @@ playBtn.addEventListener("click", function () {
     alert("Sorry, no audio available for this word.");
   }
 });
+
+// 5. Save to favorites button event
+saveBtn.addEventListener("click", function () {
+  if (!currentWord) return;
+
+  if (savedWords.includes(currentWord)) {
+    // Remove if already in saved list
+    savedWords = savedWords.filter(w => w !== currentWord);
+  } else {
+    // Add to saved list
+    savedWords.push(currentWord);
+  }
+
+  // Save to localStorage
+  localStorage.setItem("savedWords", JSON.stringify(savedWords));
+
+  updateSaveButton();
+  displaySavedWords();
+});
+
+// Update save button and word title styling (highlighting saved words)
+function updateSaveButton() {
+  if (savedWords.includes(currentWord)) {
+    saveBtn.textContent = "Saved ✓";
+    saveBtn.classList.add("saved-btn-active");
+    wordTitle.classList.add("saved-highlight");
+  } else {
+    saveBtn.textContent = "Save to Favorites";
+    saveBtn.classList.remove("saved-btn-active");
+    wordTitle.classList.remove("saved-highlight");
+  }
+}
+
+// 6. Display saved words list
+function displaySavedWords() {
+  savedList.innerHTML = "";
+
+  for (let w of savedWords) {
+    let li = document.createElement("li");
+    li.textContent = w + " ";
+
+    let delBtn = document.createElement("button");
+    delBtn.textContent = "Remove";
+    delBtn.className = "delete-btn";
+    delBtn.onclick = function () {
+      savedWords = savedWords.filter(item => item !== w);
+      localStorage.setItem("savedWords", JSON.stringify(savedWords));
+      displaySavedWords();
+      updateSaveButton();
+    };
+
+    li.appendChild(delBtn);
+    savedList.appendChild(li);
+  }
+}
+
