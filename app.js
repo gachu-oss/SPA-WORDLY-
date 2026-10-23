@@ -30,3 +30,34 @@ form.addEventListener("submit", function (e) {
 
   searchWord(word);
 });
+
+// 2. Fetch word definition from API
+async function searchWord(word) {
+  message.textContent = "Searching...";
+  resultBox.style.display = "none";
+
+  // 1. Try primary Free Dictionary API
+  try {
+    let res = await fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
+    if (res.ok) {
+      let data = await res.json();
+      displayResults(data[0]);
+      return;
+    }
+  } catch (e) {
+    // Primary API down or network issue, proceed to backup
+  }
+
+  // 2. Backup API lookup (Wiktionary)
+  try {
+    let wikRes = await fetch("https://en.wiktionary.org/api/rest_v1/page/definition/" + word);
+    if (wikRes.ok) {
+      let wikData = await wikRes.json();
+      displayWiktionary(word, wikData);
+      return;
+    }
+    message.textContent = "Word not found!";
+  } catch (err) {
+    message.textContent = "Error fetching word. Please try again.";
+  }
+}
