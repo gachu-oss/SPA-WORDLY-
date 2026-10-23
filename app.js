@@ -61,3 +61,23 @@ async function searchWord(word) {
     message.textContent = "Error fetching word. Please try again.";
   }
 }
+
+// 3. Display results on the page
+function displayResults(data) {
+  message.textContent = "";
+  resultBox.style.display = "block";
+
+  currentWord = data.word;
+  wordTitle.textContent = data.word;
+  phonetic.textContent = data.phonetic || (data.phonetics && data.phonetics[0] && data.phonetics[0].text) || "No pronunciation available";
+
+  // Find audio pronunciation
+  audioUrl = "";
+  if (data.phonetics) {
+    for (let p of data.phonetics) {
+      if (p.audio) {
+        audioUrl = p.audio;
+        break;
+      }
+    }
+  }
