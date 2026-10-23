@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordly - Dictionary App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Wordly Dictionary</h1>
+
+    <!-- Search Form -->
+    <form id="search-form">
+      <input type="text" id="word-input" placeholder="Search a word..." required>
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Error or status message -->
+    <p id="message"></p>
+
+    <!-- Results Section -->
+    <div id="result-box" style="display: none;">
+      <h2 id="word-title"></h2>
+      <p id="phonetic"></p>
+      
+      <div class="buttons">
+        <button id="play-btn">Play Audio</button>
+        <button id="save-btn">Save to Favorites</button>
+      </div>
+
+      <div id="definitions"></div>
+    </div>
+
+    <!-- Saved Words -->
+    <div class="saved-section">
+      <h3>Saved Words</h3>
+      <ul id="saved-list"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
